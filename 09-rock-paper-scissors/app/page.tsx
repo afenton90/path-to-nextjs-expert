@@ -1,10 +1,18 @@
+"use client";
+
 import Link from "next/link";
 import { Inter } from "@next/font/google";
 import styles from "./page.module.css";
+import { initOptions } from "./settings/options";
+import { useEffect } from "react";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
+  useEffect(() => {
+    initOptions();
+  }, []);
+
   return (
     <main className={styles.main}>
       <div className={styles.grid}>
