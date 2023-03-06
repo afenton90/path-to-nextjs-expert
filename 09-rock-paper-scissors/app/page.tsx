@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Inter } from "@next/font/google";
+import { Inter } from "next/font/google";
 import styles from "./page.module.css";
 import { cookies } from "next/headers";
 import { GameArea } from "./components/GameArea";

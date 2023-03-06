@@ -25,7 +25,13 @@ export const setSettingValue = (settingOption: SettingsOptions, value: any) => {
   document.cookie = `${settingOption}=${JSON.stringify(value)}`;
 };
 
+const getCookie = (name: SettingsOptions) =>
+  document.cookie.match(new RegExp("(^| )" + name + "=([^;]+)"))?.[2] ?? "";
+
 export const initOptions = () => {
-  document.cookie = `${SettingsOptions.GameLength}=5`;
-  document.cookie = `${SettingsOptions.Theme}=light`;
+  const currentGameLength = getCookie(SettingsOptions.GameLength);
+  const currentTheme = getCookie(SettingsOptions.Theme);
+
+  document.cookie = `${SettingsOptions.GameLength}=${currentGameLength || 5}`;
+  document.cookie = `${SettingsOptions.Theme}=${currentTheme || "light"}`;
 };
