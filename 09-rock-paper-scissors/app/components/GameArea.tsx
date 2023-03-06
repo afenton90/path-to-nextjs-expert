@@ -21,6 +21,8 @@ export const GameArea = ({ gameLengthSeconds }: GameAreaProps) => {
     play,
     result,
     timeRemaining,
+    error,
+    errorMessage,
   } = useRockPaperScissors({ gameLengthSeconds });
 
   return (
@@ -55,6 +57,11 @@ export const GameArea = ({ gameLengthSeconds }: GameAreaProps) => {
           />
         </label>
       </fieldset>
+      {error && (
+        <div>
+          <b style={{ color: "red" }}>{errorMessage}</b>
+        </div>
+      )}
       <button onClick={play}>Play</button>
       <p>
         Machine Choice <b>{machinePlayerChoice}</b>

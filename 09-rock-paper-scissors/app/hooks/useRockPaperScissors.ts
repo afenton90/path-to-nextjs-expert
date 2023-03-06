@@ -1,5 +1,4 @@
 import { ChangeEvent, useCallback, useRef, useState } from "react";
-import { getSettingValue, SettingsOptions } from "../settings/options";
 import { Choices } from "../types";
 
 export enum GameResult {
@@ -19,6 +18,7 @@ export const useRockPaperScissors = ({
   const [machinePlayerChoice, setMachinePlayerChoice] = useState(-1);
   const [result, setResult] = useState<GameResult>();
   const [timeRemaining, setTimeRemaining] = useState(gameLengthSeconds);
+  const [errorMessage, setErrorMessage] = useState<string>("");
   const playerChoiceRef = useRef(playerChoice);
   playerChoiceRef.current = playerChoice;
 
@@ -36,6 +36,12 @@ export const useRockPaperScissors = ({
   const decideGame = () => {
     const min = 0;
     const max = 2;
+
+    if (playerChoiceRef.current === -1) {
+      setErrorMessage("No choice made!");
+      setResult(GameResult.MACHINE);
+      return;
+    }
 
     // Get the machine player to make a choice
     const machineChoice = Math.floor(Math.random() * (max - min + 1) + min);
@@ -62,6 +68,7 @@ export const useRockPaperScissors = ({
   };
 
   const play = () => {
+    setErrorMessage("");
     setTimeRemaining(gameLengthSeconds);
 
     if (gameLengthSeconds) {
@@ -85,5 +92,7 @@ export const useRockPaperScissors = ({
     onChoiceChange,
     play,
     timeRemaining,
+    errorMessage,
+    error: !!errorMessage,
   };
 };
